@@ -1,63 +1,153 @@
-<?php
-// layouts/main.php
-?>
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
-    <title>Travel – Réservez vos voyages facilement</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Pro - Réservation de billets et voyage</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
 
-    <!-- Tailwind en local (adapte le chemin si besoin : assets/ ou assests/) -->
-    <link rel="stylesheet" href="assests/tailwind.min.css">
+        #accueil {
+            background-color: rgba(99, 102, 241, 0.1);
+            font-weight: 600;
+            color: #4F46E5 !important;
+        }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-900 antialiased">
+
+<body class="text-gray-900 antialiased">
 
     <!-- NAVBAR -->
-    <header class="sticky top-0 z-30 bg-white/90 backdrop-blur border-b border-slate-200">
-        <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-            <!-- Logo -->
-            <a href="index.php?route=home" class="flex items-center space-x-2">
-                <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-tr from-sky-500 to-indigo-500 text-white font-bold text-lg">
-                    T
-                </span>
-                <span class="text-xl font-semibold text-slate-900">Travel</span>
-            </a>
+    <nav class="bg-white/90 backdrop-blur-md shadow-sm border-b border-gray-100 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
 
-            <!-- Liens -->
-            <div class="hidden md:flex items-center space-x-6 text-sm font-medium">
-                <a href="index.php?route=home" class="text-slate-700 hover:text-sky-600 transition">Rechercher</a>
-                <a href="index.php?route=hotels" class="text-slate-700 hover:text-sky-600 transition">Hôtels</a>
-                <a href="index.php?route=activities" class="text-slate-700 hover:text-sky-600 transition">Activités</a>
-                <a href="index.php?route=reservations" class="text-slate-700 hover:text-sky-600 transition">Mes réservations</a>
+                <!-- LOGO -->
+                <a href="index.php?route=home" class="flex items-center space-x-3">
+                    <div
+                        class="w-10 h-10 bg-gradient-to-br from-indigo-600 to-blue-600 rounded-lg flex items-center justify-center shadow-lg">
+                        <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 2L11 13"></path>
+                            <path d="M22 2l-7 20-4-9-9-4 20-7z"></path>
+                        </svg>
+                    </div>
+                    <span
+                        class="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent hidden sm:inline">
+                        Travel Pro
+                    </span>
+                </a>
+
+                <!-- MENU DESKTOP -->
+                <div class="hidden md:flex items-center space-x-1">
+                    <a href="index.php?route=home"
+                        class="px-4 py-2 rounded-lg hover:bg-red-500 hover:text-blue-500">Accueil</a>
+
+                    <a href="index.php?route=hotels"
+                        class="px-4 py-2 rounded-lg hover:bg-red-500 hover:text-blue-500>Hôtels</a>
+
+                    <a href="index.php?route=activities"
+                        class="px-4 py-2 rounded-lg hover:bg-gray-50 transition">Activités</a>
+
+                    <?php if (!empty($_SESSION['user_id'])): ?>
+                        <a href="index.php?route=reservations"
+                            class="px-4 py-2 rounded-lg hover:bg-gray-50 transition">
+                            Mes réservations
+                        </a>
+
+                        <a href="index.php?route=logout"
+                            class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition">
+                            Déconnexion
+                        </a>
+                    <?php else: ?>
+                        <a href="index.php?route=login"
+                            class="px-4 py-2 rounded-lg hover:bg-gray-50 transition">Connexion</a>
+
+                        <a href="index.php?route=register"
+                            class="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition shadow">
+                            Inscription
+                        </a>
+                    <?php endif; ?>
+                </div>
+
+                <!-- BOUTON MOBILE -->
+                <button id="mobile-menu-btn"
+                    class="md:hidden p-2 rounded-lg hover:bg-gray-100 transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- MENU MOBILE -->
+            <div id="mobile-menu" class="hidden md:hidden pb-4 space-y-1 border-t border-gray-100">
+                <a href="index.php?route=home"
+                    class="block px-4 py-2 rounded-lg hover:bg-gray-50" id="accueil">Accueil</a>
+
+                <a href="index.php?route=hotels"
+                    class="block px-4 py-2 rounded-lg hover:bg-gray-50">Hôtels</a>
+
+                <a href="index.php?route=activities"
+                    class="block px-4 py-2 rounded-lg hover:bg-gray-50">
+                    Activités
+                </a>
 
                 <?php if (!empty($_SESSION['user_id'])): ?>
-                    <span class="text-slate-500 text-xs uppercase tracking-wide">Connecté</span>
-                    <a href="index.php?route=logout" class="px-3 py-1 rounded-full border border-slate-300 text-slate-700 hover:bg-slate-100 text-sm">
+                    <a href="index.php?route=reservations"
+                        class="block px-4 py-2 rounded-lg hover:bg-gray-50">
+                        Mes réservations
+                    </a>
+
+                    <a href="index.php?route=logout"
+                        class="block px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
                         Déconnexion
                     </a>
                 <?php else: ?>
-                    <a href="index.php?route=login" class="text-slate-700 hover:text-sky-600 transition">Connexion</a>
-                    <a href="index.php?route=register" class="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-sky-500 to-indigo-500 text-white shadow-sm hover:shadow-md text-sm font-semibold transition">
+                    <a href="index.php?route=login"
+                        class="block px-4 py-2 rounded-lg hover:bg-gray-50">
+                        Connexion
+                    </a>
+
+                    <a href="index.php?route=register"
+                        class="block px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
                         Inscription
                     </a>
                 <?php endif; ?>
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
 
-    <!-- CONTENU PRINCIPAL -->
-    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+    <!-- CONTENU -->
+    <main class="min-h-screen">
         <?= $content ?? '' ?>
     </main>
 
     <!-- FOOTER -->
-    <footer class="border-t border-slate-200 mt-10">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-xs text-slate-500 flex flex-col sm:flex-row justify-between gap-2">
-            <p>© <?= date('Y') ?> Travel. Tous droits réservés.</p>
-            <p>Projet d’exercice – inspiration Booking / Skyscanner.</p>
+    <footer class="bg-gray-900 text-gray-300 mt-20 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 py-16 text-center text-sm text-gray-400">
+            <p>&copy; 2025 Travel Pro. Tous droits réservés.</p>
         </div>
     </footer>
+
+    <!-- SCRIPTS -->
+    <script src="assets/js/app.js"></script>
+
+    <script>
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+    </script>
 
 </body>
 </html>

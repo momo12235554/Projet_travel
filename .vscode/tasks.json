@@ -1,0 +1,34 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Check Node/npm",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"-v"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Check npm",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"-v"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Generate PDF (md-to-pdf)",
+			"type": "shell",
+			"command": "npx",
+			"args": [
+				"-y",
+				"md-to-pdf",
+				"docs\\PROJECT_DOCUMENTATION.md"
+			],
+			"isBackground": false
+		}
+	]
+}

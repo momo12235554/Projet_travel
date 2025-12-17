@@ -7,6 +7,12 @@ class User {
         $stmt->execute([$email]);
         return $stmt->fetch();
     }
+
+        public static function findById($db, $id) {
+        $stmt = $db->prepare("SELECT * FROM users WHERE id = ?");
+        $stmt->execute([$id]);
+        return $stmt->fetch();
+    }
     
     public static function create($db, $email, $password) {
         // En production, stocker le mot de passe hashé !
